@@ -94,12 +94,34 @@ function checkForGameOver() {
 //som motsvarar nuvarande combo innehåller playerIn. Om sant, ändra värdet på flaggan.
 //Returnera flaggan isWinner
 function checkWinner(playerIn) {
+    let winningCombos = [
+        [0,1,2], 
+        [3,4,5], 
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6]
+    ]
 
-}
+    let isWinner = winningCombos.some(function(combo) {
+        return combo.every(function(position) {
+            return oGameData.gameField[position] === playerIn;
+        });
+    });
+console.log(isWinner);
+return isWinner;
+};
+
 
 //Kontrollera om alla platser i oGameData.GameField är fyllda. Om sant returnera true, annars false.
 function checkForDraw() {
 
+    let draw = oGameData.gameField.every(function(spot){
+        return spot !== '';
+    });
+return draw;
 }
 
 //Funktion som förbereder spelet inför start
