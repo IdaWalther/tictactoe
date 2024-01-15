@@ -118,6 +118,10 @@ return isWinner;
 //Kontrollera om alla platser i oGameData.GameField är fyllda. Om sant returnera true, annars false.
 function checkForDraw() {
 
+    let draw = oGameData.gameField.every(function(spot){
+        return spot !== '';
+    });
+return draw;
 }
 
 //Funktion som förbereder spelet inför start
