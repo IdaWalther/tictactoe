@@ -36,7 +36,7 @@
                     <input type="color" id="color1" value="#FFFFFF" placeholder="nickname" class="form-control" title="färg för spelare 1">
                 </div>
                 <div class="col-6">
-                    <label for="color2">Färg spelare 2 :</label>
+                    <label for="color2">Färg spelare 2:</label>
                     <input type="color" id="color2" value="#FFFFFF" placeholder="nickname" class="form-control" title="färg för spelare 2">
                 </div>
                 <div id="divWithA" class="col-12 text-right mt-5">
@@ -79,10 +79,10 @@
         if(checkForGameOver() === 1) {
             console.log("Spelare X har vunnit!");
         }
-        else if(checkForGameOver() === 2 ) {
+        if(checkForGameOver() === 2 ) {
             console.log("Spelare O har vunnit!");
         }
-        else if(checkForGameOver() === 3) {
+        if(checkForGameOver() === 3) {
             console.log("Spelet slutade oavgjort");
         }
         else{
