@@ -102,9 +102,18 @@ function checkWinner(playerIn) {
         [1,4,7],
         [2,5,8],
         [0,4,8],
-        [2,4,6],
+        [2,4,6]
     ]
-}
+
+    let isWinner = winningCombos.some(function(combo) {
+        return combo.every(function(position) {
+            return oGameData.gameField[position] === playerIn;
+        });
+    });
+console.log(isWinner);
+return isWinner;
+};
+
 
 //Kontrollera om alla platser i oGameData.GameField är fyllda. Om sant returnera true, annars false.
 function checkForDraw() {
