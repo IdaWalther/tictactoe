@@ -35,7 +35,7 @@ Funktionen SKALL returnera antingen true eller false.
 Här kontrollerar ni om alla platser på spelplanen är upptagna eller inte.
 Funktionen SKALL returnera antingen true eller false.
 
-### Andra etappen
+## Andra etappen
 Denna andra etapp skall vi bygga spelet såpass långt så att det går att spela. Vi kommer att att använda oss av bootstrap klassen "d-none" för att bestämma vilka element i DOM:en som skall synas och vice versa. Därutöver kommer vi att läsa in objekt från DOM:en, placera händelselyssnare, skicka variabler, ta emot parametrar, skriva ut saker på skärmen med mera.
 
 För att kicka igång programmet behöver ni någonstans i er "script.js" först anropa funktionen "prepGame()".
