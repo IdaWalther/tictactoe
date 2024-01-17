@@ -124,9 +124,9 @@ return draw;
 
 //Funktion som förbereder spelet inför start
 function prepGame() {
-let gameArea = document.querySelector('#gameArea');
+const gameArea = document.querySelector('#gameArea');
 gameArea.classList.add('d-none');
-let startGameBtn = document.querySelector('#newGame');
+const startGameBtn = document.querySelector('#newGame');
 startGameBtn.addEventListener('click', initiateGame);
 
 }
@@ -135,8 +135,30 @@ function validateForm() {
 
 }
 
+/*
+* Töm spelplanen genom att läsa in alla td-element, loopa igenom dem, och ändra dess text till en tom sträng (inga mellanslag).
+* Deklarera de lokala variablerna "playerChar" och "playerName".
+* Bestäm vilken spelare som skall börja genom att slumpa fram ett tal mellan 0 och 1.
+* Om talet är mindre än 0.5 så tilldelar ni:
+    - playeChar = oGameData.playerOne;
+    - playerName = oGameData.nickNamePlayerOne;
+    - oGameData.currentPlayer = oGameData.playerOne;
+* Om talet är större än, eller lika med, 0.5 gör ni samma sak som ovan, fast med spelare 2.
+* Ändra texten i h1-elementet som ligger i div-elementet med klassen "jumbotron" till "Aktuell spelare är XXX", där ni ersätter XXX med namnet på den aktuella spelaren.
+* Lägg till en klicklyssnare på tabellen som innehåller spelplanen. Vid klick skall funktionen "executeMove()" anropas. */
+
 function initiateGame() {
 console.log('initiateGame function');
+const form = document.querySelector('#theForm');
+form.classList.add('d-none');
+gameArea.classList.remove('d-none');
+const errorMsg = document.querySelector('#errorMsg');
+errorMsg.textContent = '';
+oGameData.nickNamePlayerOne = document.querySelector('#nick1').value;
+oGameData.colorPlayerOne = document.querySelector('#color1').value;
+oGameData.nickNamePlayerTwo = document.querySelector('#nick2').value;
+oGameData.colorPlayerTwo = document.querySelector('#color2').value;
+
 }
 
 function startGame () {
