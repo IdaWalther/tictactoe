@@ -135,30 +135,41 @@ function validateForm() {
 
 }
 
-/*
-* Töm spelplanen genom att läsa in alla td-element, loopa igenom dem, och ändra dess text till en tom sträng (inga mellanslag).
-* Deklarera de lokala variablerna "playerChar" och "playerName".
-* Bestäm vilken spelare som skall börja genom att slumpa fram ett tal mellan 0 och 1.
-* Om talet är mindre än 0.5 så tilldelar ni:
-    - playeChar = oGameData.playerOne;
-    - playerName = oGameData.nickNamePlayerOne;
-    - oGameData.currentPlayer = oGameData.playerOne;
-* Om talet är större än, eller lika med, 0.5 gör ni samma sak som ovan, fast med spelare 2.
-* Ändra texten i h1-elementet som ligger i div-elementet med klassen "jumbotron" till "Aktuell spelare är XXX", där ni ersätter XXX med namnet på den aktuella spelaren.
-* Lägg till en klicklyssnare på tabellen som innehåller spelplanen. Vid klick skall funktionen "executeMove()" anropas. */
-
 function initiateGame() {
-console.log('initiateGame function');
-const form = document.querySelector('#theForm');
-form.classList.add('d-none');
-gameArea.classList.remove('d-none');
-const errorMsg = document.querySelector('#errorMsg');
-errorMsg.textContent = '';
-oGameData.nickNamePlayerOne = document.querySelector('#nick1').value;
-oGameData.colorPlayerOne = document.querySelector('#color1').value;
-oGameData.nickNamePlayerTwo = document.querySelector('#nick2').value;
-oGameData.colorPlayerTwo = document.querySelector('#color2').value;
+    const form = document.querySelector('#theForm');
+    form.classList.add('d-none');
+    gameArea.classList.remove('d-none');
+    const errorMsg = document.querySelector('#errorMsg');
+    errorMsg.textContent = '';
+    oGameData.nickNamePlayerOne = document.querySelector('#nick1').value;
+    oGameData.colorPlayerOne = document.querySelector('#color1').value;
+    oGameData.nickNamePlayerTwo = document.querySelector('#nick2').value;
+    oGameData.colorPlayerTwo = document.querySelector('#color2').value;
 
+    let emptyGame = document.querySelectorAll('td');
+    for(let i = 0; i < emptyGame.length; i++) {
+        emptyGame[i].textContent = ''
+    };
+
+    let playerChar;
+    let playerName;
+
+    let randomNumber = Math.random() * 1;
+    if(randomNumber < 0.5) {
+        playerChar = oGameData.playerOne;
+        playerName = oGameData.nickNamePlayerOne;
+        oGameData.currentPlayer = oGameData.playerOne;
+    } else if(randomNumber >= 0.5) {
+        playerChar = oGameData.playerTwo;
+        playerName = oGameData.nickNamePlayerTwo;
+        oGameData.currentPlayer = oGameData.playerTwo;
+    }
+
+    let currentPlayer = document.querySelector('.jumbotron h1');
+    currentPlayer.innerText = `Aktuell spelare är ${playerName}`;
+
+    const clickTable = document.querySelector('#gameArea table');
+    clickTable.addEventListener('click', executeMove);
 }
 
 function startGame () {
@@ -175,4 +186,8 @@ function timer() {
 
 function gameOver() {
 
+}
+
+function executeMove() {
+    console.log('ExecuteMove');
 }
