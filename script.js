@@ -59,7 +59,7 @@ function initGlobalObject() {
     //Referens till element för felmeddelanden
     oGameData.timeRef = document.querySelector("#errorMsg");
 }
-
+prepGame();
 /**
  * Kontrollerar för tre i rad.
  * Returnerar 0 om det inte är någon vinnare, 
@@ -110,8 +110,7 @@ function checkWinner(playerIn) {
             return oGameData.gameField[position] === playerIn;
         });
     });
-console.log(isWinner);
-return isWinner;
+    return isWinner;
 };
 
 
@@ -125,6 +124,10 @@ return draw;
 
 //Funktion som förbereder spelet inför start
 function prepGame() {
+let gameArea = document.querySelector('#gameArea');
+gameArea.classList.add('d-none');
+let startGameBtn = document.querySelector('#newGame');
+startGameBtn.addEventListener('click', initiateGame);
 
 }
 
@@ -133,7 +136,7 @@ function validateForm() {
 }
 
 function initiateGame() {
-
+console.log('initiateGame function');
 }
 
 function startGame () {
