@@ -124,9 +124,9 @@ return draw;
 
 //Funktion som förbereder spelet inför start
 function prepGame() {
-let gameArea = document.querySelector('#gameArea');
+const gameArea = document.querySelector('#gameArea');
 gameArea.classList.add('d-none');
-let startGameBtn = document.querySelector('#newGame');
+const startGameBtn = document.querySelector('#newGame');
 startGameBtn.addEventListener('click', initiateGame);
 
 }
@@ -136,7 +136,40 @@ function validateForm() {
 }
 
 function initiateGame() {
-console.log('initiateGame function');
+    const form = document.querySelector('#theForm');
+    form.classList.add('d-none');
+    gameArea.classList.remove('d-none');
+    const errorMsg = document.querySelector('#errorMsg');
+    errorMsg.textContent = '';
+    oGameData.nickNamePlayerOne = document.querySelector('#nick1').value;
+    oGameData.colorPlayerOne = document.querySelector('#color1').value;
+    oGameData.nickNamePlayerTwo = document.querySelector('#nick2').value;
+    oGameData.colorPlayerTwo = document.querySelector('#color2').value;
+
+    let emptyGame = document.querySelectorAll('td');
+    for(let i = 0; i < emptyGame.length; i++) {
+        emptyGame[i].textContent = ''
+    };
+
+    let playerChar;
+    let playerName;
+
+    let randomNumber = Math.random() * 1;
+    if(randomNumber < 0.5) {
+        playerChar = oGameData.playerOne;
+        playerName = oGameData.nickNamePlayerOne;
+        oGameData.currentPlayer = oGameData.playerOne;
+    } else if(randomNumber >= 0.5) {
+        playerChar = oGameData.playerTwo;
+        playerName = oGameData.nickNamePlayerTwo;
+        oGameData.currentPlayer = oGameData.playerTwo;
+    }
+
+    let currentPlayer = document.querySelector('.jumbotron h1');
+    currentPlayer.innerText = `Aktuell spelare är ${playerName}`;
+
+    const clickTable = document.querySelector('#gameArea table');
+    clickTable.addEventListener('click', executeMove);
 }
 
 function startGame () {
@@ -153,4 +186,8 @@ function timer() {
 
 function gameOver() {
 
+}
+
+function executeMove() {
+    console.log('ExecuteMove');
 }
