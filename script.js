@@ -128,7 +128,6 @@ const gameArea = document.querySelector('#gameArea');
 gameArea.classList.add('d-none');
 const startGameBtn = document.querySelector('#newGame');
 startGameBtn.addEventListener('click', initiateGame);
-
 }
 
 function validateForm() {
@@ -177,17 +176,60 @@ function startGame () {
 }
 
 function changePlayer() {
-
+    let currentPlayer = document.querySelector('.jumbotron h1');
+    if (oGameData.currentPlayer === oGameData.playerOne) {
+        oGameData.currentPlayer = oGameData.playerTwo;
+        currentPlayer.innerText = `Aktuell spelare är ${oGameData.nickNamePlayerTwo} och du spelar med O`;
+    } else if (oGameData.currentPlayer === oGameData.playerTwo) {
+        oGameData.currentPlayer = oGameData.playerOne;
+        currentPlayer.innerText = `Aktuell spelare är ${oGameData.nickNamePlayerOne} och du spelar med X`;
+    }
 }
 
 function timer() {
 
 }
 
-function gameOver() {
+function gameOver(result) {
+    let clickedTable = document.querySelector('#gameArea table');
+    clickedTable.removeEventListener('click', executeMove);
+    let form = document.querySelector('#theForm');
+    form.classList.remove('d-none');
+    let gameArea = document.querySelector('#gameArea');
+    gameArea.classList.add('d-none');
 
+    let gameOver = document.querySelector('.jumbotron h1');
+    if(result === 1) {
+        gameOver.innerText = `Grattis ${oGameData.nickNamePlayerOne} du har vunnit! Spela igen?`;
+    } else if(result === 2) {
+        gameOver.innerText = `Grattis ${oGameData.nickNamePlayerTwo} du har vunnit! Spela igen?`;
+    } else if(result === 3) {
+        gameOver.innerText = `Det blev oavgjort! Spela igen?`;
+    }
+    initGlobalObject();
 }
 
 function executeMove() {
-    console.log('ExecuteMove');
-}
+    var clickedCell = document.querySelectorAll('td');
+    for(let i = 0; i < clickedCell.length; i++) {
+            clickedCell[i].addEventListener('click', (event) => {
+                if (clickedCell[i].textContent === '') {
+                    let dataId = event.target.getAttribute('data-id');
+                    console.log(`Jag tillhör data-id ${dataId}`);
+                    oGameData.gameField[dataId] = oGameData.currentPlayer;
+                    clickedCell[i].textContent = oGameData.currentPlayer;
+                    if (oGameData.currentPlayer === oGameData.playerOne) {
+                        clickedCell[i].style.backgroundColor = oGameData.colorPlayerOne;
+                    } else if (oGameData.currentPlayer === oGameData.playerTwo) {
+                        clickedCell[i].style.backgroundColor = oGameData.colorPlayerTwo;
+                    }
+                    let checkIfPlayerHasWon = checkForGameOver();
+                    if (checkIfPlayerHasWon) {
+                        console.log(checkIfPlayerHasWon);
+                       return gameOver(checkIfPlayerHasWon);
+                    }    
+                    changePlayer();
+                };
+            });
+    };
+};
