@@ -127,11 +127,50 @@ function prepGame() {
 const gameArea = document.querySelector('#gameArea');
 gameArea.classList.add('d-none');
 const startGameBtn = document.querySelector('#newGame');
-startGameBtn.addEventListener('click', initiateGame);
+startGameBtn.addEventListener('click', validateForm);
 }
 
 function validateForm() {
+    console.log('validateForm');
+    const nickOne = document.querySelector('#nick1');
+    const nickTwo = document.querySelector('#nick2');
+    const colorOne = document.querySelector('#color1');
+    const colorTwo = document.querySelector('#color2');
 
+    try {
+        if(nickOne.value.length < 3 || nickOne.value.length > 10) {
+            throw {
+                'nodeRef': nickOne,
+                'msg': 'Ange ett nickname mellan 3 och 10 tecken'
+            }
+        } else if(nickTwo.value.length < 3 || nickTwo.value.lenght > 10) {
+            throw {
+                'nodeRef': nickTwo,
+                'msg': 'Ange ett nickname mellan 3 och 10 tecken'
+            } 
+        } else if(colorOne.value === '#000000' || colorOne.value === '#ffffff') {
+            throw {
+                'nodeRef': colorOne,
+                'msg': 'Ange en färg som inte är svart eller vit'
+            } 
+        } else if(colorTwo.value === '#000000' || colorTwo.value === '#ffffff') {
+            throw {
+                'nodeRef': colorTwo,
+                'msg': 'Ange en färg som inte är svart eller vit'
+            }
+        } else if(colorOne.value === colorTwo.value) { 
+            throw {
+                'nodeRef': colorTwo,
+                'msg': 'Ni får inte välja samma färg!'
+            
+            }
+        }
+       initiateGame();
+    } catch(error) {
+        console.log(error);
+        document.querySelector('#errorMsg').textContent = error.msg;
+        error.nodeRef.focus();
+    }
 }
 
 function initiateGame() {
@@ -148,6 +187,7 @@ function initiateGame() {
     let emptyGame = document.querySelectorAll('td');
     for(let i = 0; i < emptyGame.length; i++) {
         emptyGame[i].textContent = ''
+        emptyGame[i].style.backgroundColor = '#ffffff';
     };
 
     let playerChar;
@@ -169,10 +209,6 @@ function initiateGame() {
 
     const clickTable = document.querySelector('#gameArea table');
     clickTable.addEventListener('click', executeMove);
-}
-
-function startGame () {
-
 }
 
 function changePlayer() {
